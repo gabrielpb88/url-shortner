@@ -4,6 +4,7 @@
   "description": "Technical challenge for a backend job at Jusfy",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "test": "jest --passWithNoTests",
     "prepare": "husky install"
   },
@@ -23,6 +24,7 @@
     "husky": "^8.0.0",
     "jest": "^29.5.0",
     "lint-staged": "^13.2.2",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }
 }
