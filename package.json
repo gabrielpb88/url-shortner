@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "test": "jest --passWithNoTests --watch",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "keywords": [],
   "author": "Gabriel Pereira Bastos",
