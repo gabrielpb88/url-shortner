@@ -10,7 +10,11 @@ export class ShortenerController implements Controller {
       return badRequest(new Error())
     }
     const { url } = httpRequest.body
-    await this.shortener.shorten(url)
-    return ok({})
+    const short = await this.shortener.shorten(url)
+    const host = process.env.HOST || 'http://localhost:8080'
+    return ok({
+      original: url,
+      short: `${host}/${short}`
+    })
   }
 }
