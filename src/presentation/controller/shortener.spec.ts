@@ -4,6 +4,7 @@ import { type Shortener } from '../../data/usecases/protocols/shortener'
 import { ok } from '../helpers/http-helpers'
 import { type AddUrlRepository } from '../../data/usecases/protocols/add-url-repository'
 import { type ShortenUrlModel } from '../../domain/shorten-url/shorten-url.usecase'
+import { MissingParamError } from '../error/missing-param-error'
 
 interface SutTypes {
   sut: ShortenerController
@@ -53,7 +54,7 @@ describe('Shortener UseCase', () => {
       body: {}
     }
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual({ statusCode: 400, body: new Error() })
+    expect(httpResponse).toEqual({ statusCode: 400, body: new MissingParamError('url') })
   })
 
   test('Should call Shortener with correct value', async () => {

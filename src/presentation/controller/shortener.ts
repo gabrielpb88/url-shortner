@@ -3,6 +3,7 @@ import { type HttpRequest, type HttpResponse } from '../protocols/http'
 import { type Shortener } from '../../data/usecases/protocols/shortener'
 import { badRequest, ok } from '../helpers/http-helpers'
 import { type AddUrlRepository } from '../../data/usecases/protocols/add-url-repository'
+import { MissingParamError } from '../error/missing-param-error'
 
 export class ShortenerController implements Controller {
   constructor (private readonly shortener: Shortener,
@@ -10,7 +11,7 @@ export class ShortenerController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     if (!httpRequest.body.url) {
-      return badRequest(new Error())
+      return badRequest(new MissingParamError('url'))
     }
     const { url } = httpRequest.body
     const short = await this.shortener.shorten(url)
