@@ -4,6 +4,6 @@ export interface ShortenUrlUsecase {
 
 export interface ShortenUrlModel {
   original: string
-  shorten?: string
+  shortened?: string
   expirationDate?: Date
 }

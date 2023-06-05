@@ -41,7 +41,7 @@ describe('RedirectUrl UseCase', () => {
     const date = new Date()
     const repositoryResponse: ShortenUrlModel = {
       original: 'www.jusfy.com.br',
-      shorten: 'any_short',
+      shortened: 'any_short',
       expirationDate: date
     }
     jest.spyOn(findUrlRepositoryStub, 'find').mockResolvedValue(repositoryResponse)

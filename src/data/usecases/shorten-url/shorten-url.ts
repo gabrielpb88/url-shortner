@@ -10,7 +10,9 @@ export class ShortenUrl implements ShortenUrlUsecase {
   ) {}
 
   async shorten (url: string): Promise<ShortenUrlModel> {
-    const shortenedUrl = { original: url, shortened: await this.shortener.shorten(url) }
+    const expirationDate = new Date()
+    expirationDate.setDate(expirationDate.getDate() + Number(this.expirationTimeInDays))
+    const shortenedUrl = { original: url, shortened: await this.shortener.shorten(url), expirationDate }
     return await this.addUrlRepository.add(shortenedUrl)
   }
 }

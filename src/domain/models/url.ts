@@ -1,5 +1,5 @@
 export interface Url {
   original: string
-  shorten: string
+  shortened: string
   expirationDate: Date
 }

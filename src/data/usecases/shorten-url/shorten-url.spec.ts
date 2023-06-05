@@ -2,6 +2,7 @@ import { ShortenUrl } from './shorten-url'
 import { type ShortenUrlModel } from '../../../domain/shorten-url/shorten-url.usecase'
 import { type Shortener } from '../protocols/shortener'
 import { type AddUrlRepository } from '../protocols/add-url-repository'
+import env from 'main/config/env'
 
 interface SutTypes {
   sut: ShortenUrl
@@ -27,7 +28,7 @@ const makeUrlRepository = (): AddUrlRepository => {
       return await new Promise((resolve) => {
         resolve({
           original: 'original_url',
-          shorten: 'shortened_url'
+          shortened: 'shortened_url'
         })
       }
       )
@@ -37,15 +38,15 @@ const makeUrlRepository = (): AddUrlRepository => {
 }
 
 const makeSut = (): SutTypes => {
-  const expirationTimeInDays = 1
+  const { expirationTimeInDays } = env
   const shortenerStub = makeShortener()
   const addUrlRepositoryStub = makeUrlRepository()
-  const sut = new ShortenUrl(expirationTimeInDays, shortenerStub, addUrlRepositoryStub)
+  const sut = new ShortenUrl(Number(expirationTimeInDays), shortenerStub, addUrlRepositoryStub)
   return {
     sut,
     shortenerStub,
     addUrlRepositoryStub,
-    expirationTimeInDays
+    expirationTimeInDays: Number(expirationTimeInDays)
   }
 }
 
@@ -64,10 +65,14 @@ describe('ShortenUrl UseCase', () => {
     const { sut, shortenerStub, addUrlRepositoryStub } = makeSut()
     const repoSpy = jest.spyOn(addUrlRepositoryStub, 'add')
     jest.spyOn(shortenerStub, 'shorten').mockResolvedValue('shortened_url')
+    const { expirationTimeInDays } = env
+    const expirationDate = new Date()
+    expirationDate.setDate(expirationDate.getDate() + Number(expirationTimeInDays))
     await sut.shorten('any_url')
     expect(repoSpy).toHaveBeenCalledWith({
       original: 'any_url',
-      shortened: 'shortened_url'
+      shortened: 'shortened_url',
+      expirationDate
     })
   })
 })

@@ -19,12 +19,12 @@ describe('URL Mongo Repository ', () => {
     const expirationDate = new Date(new Date().setDate(new Date().getDate() + 5))
     const url = await sut.add({
       original: 'http://www.jusfy.com.br',
-      shorten: 'abc123',
+      shortened: 'abc123',
       expirationDate
     })
     expect(url).toBeTruthy()
     expect(url.original).toBe('http://www.jusfy.com.br')
-    expect(url.shorten).toBe('abc123')
+    expect(url.shortened).toBe('abc123')
     expect(url.expirationDate).toEqual(expirationDate)
   })
 })
