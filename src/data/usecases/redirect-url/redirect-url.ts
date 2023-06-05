@@ -7,7 +7,7 @@ export class RedirectUrl implements FindUrlUsecase {
   async find (short: string): Promise<string> {
     const date = new Date()
     date.setUTCHours(23, 59, 59, 999)
-    await this.findUrlRepository.find(short, date)
-    return await Promise.resolve('')
+    const shortenedUrl = await this.findUrlRepository.find(short, date)
+    return shortenedUrl?.original
   }
 }

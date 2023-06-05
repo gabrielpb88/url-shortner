@@ -34,4 +34,24 @@ describe('RedirectUrl UseCase', () => {
     await sut.find(short)
     expect(repoSpy).toHaveBeenCalledWith(short, date)
   })
+
+  test('Should return original url found by short', async () => {
+    const { sut, findUrlRepositoryStub } = makeSut()
+    const short = 'any_short'
+    const date = new Date()
+    const repositoryResponse: ShortenUrlModel = {
+      original: 'www.jusfy.com.br',
+      shorten: 'any_short',
+      expirationDate: date
+    }
+    jest.spyOn(findUrlRepositoryStub, 'find').mockResolvedValue(repositoryResponse)
+    const response = await sut.find(short)
+    expect(response).toBe(repositoryResponse.original)
+  })
+
+  test('Should return Falsy when url is not found', async () => {
+    const { sut } = makeSut()
+    const response = await sut.find('any_short')
+    expect(response).toBeFalsy()
+  })
 })
