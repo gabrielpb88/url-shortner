@@ -1,3 +1,3 @@
-export interface FindUrlUsecase {
+export interface RedirectUrlUsecase {
   find: (short: string) => Promise<string>
 }
