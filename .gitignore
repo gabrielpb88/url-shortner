@@ -1,5 +1,11 @@
 #IDEs
 .idea
 
+#deps
 node_modules
+
+#tests coverage folder
 coverage
+
+# mongodb storage folder
+data
