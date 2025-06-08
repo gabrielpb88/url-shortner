@@ -2,11 +2,9 @@
   "name": "backend-apply",
   "version": "1.0.0",
   "description": "Technical challenge for a backend job at Jusfy",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
-    "start": "ts-node src/main/server.ts",
-    "test": "jest --passWithNoTests --coverage",
-    "test:watch": "jest --passWithNoTests --watch",
+    "start": "ts-node src/app.ts",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
@@ -15,7 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.17",
-    "@types/jest": "^29.5.0",
     "@types/node": "^20.2.3",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "eslint": "^8.41.0",
@@ -25,14 +22,13 @@
     "eslint-plugin-promise": "^6.0.0",
     "git-commit-msg-linter": "^5.0.4",
     "husky": "^8.0.0",
-    "jest": "^29.5.0",
     "lint-staged": "^13.2.2",
-    "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "mongodb": "^5.6.0"
+    "mongodb": "^5.6.0",
+    "node-cron": "^4.1.0"
   }
 }
