@@ -1,0 +1,46 @@
+import { type Collection } from 'mongodb'
+import { type Url } from './interfaces/url.interface'
+
+export class UrlService {
+  constructor (private readonly collection: Collection<Url>) {}
+
+  async getOriginalUrl (shortUrl: string): Promise<string | null> {
+    return (await this.collection.findOne({ shortUrl }))?.original
+  }
+
+  async shortenUrl (originalUrl: string): Promise<string> {
+    const shortUrl = this.generateShortUrl()
+    const expirationTimeInDays = +process.env.EXPIRATION_TIME || 1
+    const expirationTimeInMilliseconds =
+      expirationTimeInDays * 24 * 60 * 60 * 1000
+
+    const urlData: Url = {
+      original: originalUrl,
+      shortUrl,
+      createdAt: new Date(),
+      expiresAt: new Date(Date.now() + expirationTimeInMilliseconds)
+    }
+
+    await this.collection.insertOne(urlData)
+    return shortUrl
+  }
+
+  async deleteExpiredUrls (): Promise<void> {
+    const now = new Date()
+    const result = await this.collection.deleteMany({
+      expiresAt: { $lt: now }
+    })
+    console.log(`Deleted ${result.deletedCount} expired URLs`)
+  }
+
+  private generateShortUrl (): string {
+    const validChars =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    let shortUrl = ''
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * validChars.length)
+      shortUrl += validChars[randomIndex]
+    }
+    return shortUrl
+  }
+}

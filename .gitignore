@@ -9,3 +9,6 @@ coverage
 
 # mongodb storage folder
 data
+
+# build
+dist
