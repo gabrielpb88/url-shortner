@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { type UrlService } from '../urlService'
 
-export function createUrlRoutes (urlService: UrlService): Router {
+export function createUrlRoutes(urlService: UrlService): Router {
   const router = Router()
 
   router.post('/', async (req, res) => {
