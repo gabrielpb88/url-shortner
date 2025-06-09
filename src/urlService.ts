@@ -10,7 +10,7 @@ export class UrlService {
 
   async shortenUrl (originalUrl: string): Promise<string> {
     const shortUrl = this.generateShortUrl()
-    const expirationTimeInDays = +process.env.EXPIRATION_TIME || 1
+    const expirationTimeInDays = +process.env.EXPIRATION_TIME
     const expirationTimeInMilliseconds =
       expirationTimeInDays * 24 * 60 * 60 * 1000
 

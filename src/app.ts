@@ -1,10 +1,11 @@
+import 'dotenv/config'
 import express, { json } from 'express'
 import { connectToMongo } from './db/mongo'
 import { UrlService } from './urlService'
 import { deleteUrlsJob } from './cron/deleteExpiredUrls'
 import { createUrlRoutes } from './routes/urlRoutes'
 
-async function main (): Promise<void> {
+async function main(): Promise<void> {
   const app = express()
   app.use(json())
 
