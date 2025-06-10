@@ -1,6 +1,6 @@
 import cron from 'node-cron'
-import { deleteUrlsJob } from '../../src/cron/deleteExpiredUrls'
-import { type UrlService } from '../../src/urlService'
+import { deleteUrlsJob } from './deleteExpiredUrls'
+import { type UrlService } from '../urlService'
 
 jest.mock('node-cron')
 
@@ -10,7 +10,7 @@ describe('deleteUrlsJob', () => {
     ;(cron.schedule as jest.Mock).mockImplementation(scheduleMock)
 
     const fakeService = {
-      deleteExpiredUrls: jest.fn().mockResolvedValue(undefined)
+      deleteExpiredUrls: jest.fn().mockResolvedValue(undefined),
     } as unknown as UrlService
 
     await deleteUrlsJob(fakeService)
