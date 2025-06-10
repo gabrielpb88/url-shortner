@@ -8,6 +8,7 @@
     "start": "node dist/src/app.js",
     "start:dev": "ts-node src/app.ts",
     "test": "jest",
+    "test:cov": "jest --coverage",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
