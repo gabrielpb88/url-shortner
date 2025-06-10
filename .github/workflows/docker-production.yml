@@ -33,4 +33,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: gabrielpb88/shorterner-url:staging-${{ steps.vars.outputs.sha_short }}
+          tags: gabrielpb88/shorterner-url:prod-${{ steps.vars.outputs.sha_short }}
