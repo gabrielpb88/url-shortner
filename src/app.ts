@@ -1,9 +1,9 @@
 import 'dotenv/config'
 import express, { json } from 'express'
 import { connectToMongo } from './db/mongo'
-import { UrlService } from './urlService'
-import { deleteUrlsJob } from './cron/deleteExpiredUrls'
-import { createUrlRoutes } from './routes/urlRoutes'
+import { UrlService } from './services/url.service'
+import { deleteUrlsJob } from './cron/delete-expired-urls'
+import { createUrlRoutes } from './routes/url.routes'
 
 async function main(): Promise<void> {
   const app = express()

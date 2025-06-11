@@ -1,6 +1,6 @@
 import cron from 'node-cron'
-import { deleteUrlsJob } from './deleteExpiredUrls'
-import { type UrlService } from '../urlService'
+import { deleteUrlsJob } from './delete-expired-urls'
+import { type UrlService } from '../services/url.service'
 
 jest.mock('node-cron')
 

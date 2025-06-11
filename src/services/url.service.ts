@@ -1,10 +1,10 @@
 import { type Collection } from 'mongodb'
-import { type Url } from './interfaces/url.interface'
+import { type Url } from '../interfaces/url.interface'
 
 export class UrlService {
   constructor(private readonly collection: Collection<Url>) {}
 
-  async getOriginalUrl(shortUrl: string): Promise<string | null> {
+  async getOriginalUrl(shortUrl: string): Promise<string | undefined> {
     return (await this.collection.findOne({ shortUrl }))?.original
   }
 
@@ -18,7 +18,7 @@ export class UrlService {
       original: originalUrl,
       shortUrl,
       createdAt: new Date(),
-      expiresAt: new Date(Date.now() + expirationTimeInMilliseconds)
+      expiresAt: new Date(Date.now() + expirationTimeInMilliseconds),
     }
 
     await this.collection.insertOne(urlData)
@@ -28,7 +28,7 @@ export class UrlService {
   async deleteExpiredUrls(): Promise<void> {
     const now = new Date()
     const result = await this.collection.deleteMany({
-      expiresAt: { $lt: now }
+      expiresAt: { $lt: now },
     })
     console.log(`Deleted ${result.deletedCount} expired URLs`)
   }

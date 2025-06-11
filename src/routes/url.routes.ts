@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { type UrlService } from '../urlService'
+import { type UrlService } from '../services/url.service'
 
 export function createUrlRoutes(urlService: UrlService): Router {
   const router = Router()

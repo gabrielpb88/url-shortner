@@ -1,5 +1,5 @@
 import cron from 'node-cron'
-import { type UrlService } from 'urlService'
+import { type UrlService } from 'services/url.service'
 
 export async function deleteUrlsJob(urlService: UrlService): Promise<void> {
   // Executes every day at midnight
