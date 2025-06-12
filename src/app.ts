@@ -4,7 +4,7 @@ import { connectToMongo } from './db/mongo'
 import { UrlService } from './services/url.service'
 import { deleteUrlsJob } from './cron/delete-expired-urls'
 import { createUrlRoutes } from './routes/url.routes'
-import { logger } from 'logger'
+import { logger } from './logger'
 
 async function main(): Promise<void> {
   const app = express()

@@ -1,6 +1,6 @@
 import { type Collection } from 'mongodb'
 import { type Url } from '../interfaces/url.interface'
-import { logger } from 'logger'
+import { logger } from '../logger'
 
 export class UrlService {
   constructor(private readonly collection: Collection<Url>) {}

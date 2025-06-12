@@ -2,6 +2,9 @@ import { type Collection } from 'mongodb'
 import { UrlService } from './url.service'
 import { type Url } from '../interfaces/url.interface'
 
+// remove logs from tests
+jest.mock('logger')
+
 describe('getOriginalUrl', () => {
   let collectionMock: jest.Mocked<Collection<Url>>
   let service: UrlService

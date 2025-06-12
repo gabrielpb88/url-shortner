@@ -1,6 +1,6 @@
 import { type Collection, type Db, MongoClient } from 'mongodb'
 import { type Url } from '../interfaces/url.interface'
-import { logger } from 'logger'
+import { logger } from '../logger'
 
 export async function connectToMongo(): Promise<{
   db: Db
