@@ -1,5 +1,6 @@
 import { type Collection } from 'mongodb'
 import { type Url } from '../interfaces/url.interface'
+import { logger } from 'logger'
 
 export class UrlService {
   constructor(private readonly collection: Collection<Url>) {}
@@ -30,7 +31,7 @@ export class UrlService {
     const result = await this.collection.deleteMany({
       expiresAt: { $lt: now },
     })
-    console.log(`Deleted ${result.deletedCount} expired URLs`)
+    logger.info(`Deleted ${result.deletedCount} expired URLs`)
   }
 
   private generateShortUrl(): string {
