@@ -1,12 +1,28 @@
-FROM node:18
+# Etapa 1: Build
+FROM node:22-slim AS build
 
-WORKDIR app
+WORKDIR /app
 
-COPY package.json ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 
 COPY . .
+RUN npm run build
 
-EXPOSE 8080
+# Etapa 2: Runtime
+FROM node:22-slim
+
+WORKDIR /app
+
+# Copia apenas os arquivos necessários
+COPY package.json package-lock.json ./
+ENV NODE_ENV=production
+RUN npm ci --omit=dev
+
+COPY --from=build /app/dist ./dist
+
+ENV NODE_ENV=production
+
+EXPOSE 3000
 
 CMD ["npm", "run", "start"]

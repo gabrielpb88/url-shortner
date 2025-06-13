@@ -1,0 +1,40 @@
+name: Eslint and Tests
+
+on:
+  push:
+    branches:
+      - main
+      - release
+      - develop
+      - feat/**
+      - fix/**
+  pull_request:
+    branches:
+      - main
+      - develop
+      - release
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Tests with Coverage
+        run: npm run test:cov
+
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: gabrielpb88/shorterner-url
