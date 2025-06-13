@@ -1,0 +1,48 @@
+# Node modules (serão instalados no container)
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Builds
+dist
+build
+
+# Logs
+*.log
+
+# Env
+.env
+.env.*
+
+# IDEs
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+
+# CI
+.github
+
+# Docker Compose
+docker-compose.yml
+docker-compose.*.yml
+
+# Testes
+coverage
+__tests__
+*.spec.ts
+*.test.ts
+
+# Configs
+.eslintignore
+.eslintrc.json
+.prettierignore
+.prettierrc
+tsconfig.eslint.json
+
+# Outros
+.DS_Store
+requirements
+README.md
