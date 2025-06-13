@@ -1,5 +1,7 @@
 ## Encurtador de URL
 
+[![codecov](https://codecov.io/github/gabrielpb88/shorterner-url/branch/develop/graph/badge.svg?token=0PVMTD35VS)](https://codecov.io/github/gabrielpb88/shorterner-url)
+
 Este repositório contém a implementação de um desafio técnico conforme descrição do [README.](https://github.com/gabrielpb88/shorterner-url/blob/main/requirements/README.md)
 
 ### Variáveis de Ambiente

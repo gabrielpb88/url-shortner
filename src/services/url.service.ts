@@ -1,16 +1,17 @@
 import { type Collection } from 'mongodb'
-import { type Url } from './interfaces/url.interface'
+import { type Url } from '../interfaces/url.interface'
+import { logger } from '../logger'
 
 export class UrlService {
-  constructor (private readonly collection: Collection<Url>) {}
+  constructor(private readonly collection: Collection<Url>) {}
 
-  async getOriginalUrl (shortUrl: string): Promise<string | null> {
+  async getOriginalUrl(shortUrl: string): Promise<string | undefined> {
     return (await this.collection.findOne({ shortUrl }))?.original
   }
 
-  async shortenUrl (originalUrl: string): Promise<string> {
+  async shortenUrl(originalUrl: string): Promise<string> {
     const shortUrl = this.generateShortUrl()
-    const expirationTimeInDays = +process.env.EXPIRATION_TIME || 1
+    const expirationTimeInDays = +process.env.EXPIRATION_TIME
     const expirationTimeInMilliseconds =
       expirationTimeInDays * 24 * 60 * 60 * 1000
 
@@ -18,22 +19,22 @@ export class UrlService {
       original: originalUrl,
       shortUrl,
       createdAt: new Date(),
-      expiresAt: new Date(Date.now() + expirationTimeInMilliseconds)
+      expiresAt: new Date(Date.now() + expirationTimeInMilliseconds),
     }
 
     await this.collection.insertOne(urlData)
     return shortUrl
   }
 
-  async deleteExpiredUrls (): Promise<void> {
+  async deleteExpiredUrls(): Promise<void> {
     const now = new Date()
     const result = await this.collection.deleteMany({
-      expiresAt: { $lt: now }
+      expiresAt: { $lt: now },
     })
-    console.log(`Deleted ${result.deletedCount} expired URLs`)
+    logger.info(`Deleted ${result.deletedCount} expired URLs`)
   }
 
-  private generateShortUrl (): string {
+  private generateShortUrl(): string {
     const validChars =
       'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     let shortUrl = ''

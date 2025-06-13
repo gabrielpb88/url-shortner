@@ -12,3 +12,6 @@ data
 
 # build
 dist
+
+# Envs
+.env

@@ -4,12 +4,15 @@ on:
   push:
     branches:
       - main
+      - release
       - develop
       - feat/**
+      - fix/**
   pull_request:
     branches:
       - main
       - develop
+      - release
 
 jobs:
   build-and-test:
@@ -27,5 +30,11 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Run Tests
-        run: npm run test
+      - name: Run Tests with Coverage
+        run: npm run test:cov
+
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: gabrielpb88/shorterner-url
