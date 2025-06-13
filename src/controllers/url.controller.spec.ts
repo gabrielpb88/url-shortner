@@ -1,10 +1,9 @@
 import { type Request, type Response } from 'express'
 import { UrlController } from './url.controller'
-import { type UrlService } from '../services/url.service'
 
 describe('UrlController', () => {
   let controller: UrlController
-  let urlService: { shortenUrl: jest.Mock; getOriginalUrl: jest.Mock }
+  let urlService: { shortenUrl: jest.Mock, getOriginalUrl: jest.Mock }
   let req: Partial<Request>
   let res: Partial<Response>
   let jsonMock: jest.Mock

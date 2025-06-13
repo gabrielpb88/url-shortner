@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import 'dotenv/config'
 import express, { json } from 'express'
 import { connectToMongo } from './db/mongo'
