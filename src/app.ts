@@ -11,15 +11,23 @@ async function main(): Promise<void> {
   const app = express()
   app.use(json())
 
-  const { urlsCollection } = await connectToMongo()
+  const { db, urlsCollection } = await connectToMongo()
   const urlService = new UrlService(urlsCollection)
 
   deleteUrlsJob(urlService).catch(logger.error)
 
+  app.get('/health', async (req, res) => {
+    try {
+      await db.command({ ping: 1 })
+      res.status(200).json({ status: 'OK' })
+    } catch (err) {
+      res.status(500).json({ status: 'error', error: (err as Error).message })
+    }
+  })
   app.use('/', createUrlRoutes(urlService))
 
-  const { PORT = 3000 } = process.env
-  app.listen(PORT, () => {
+  const { PORT } = process.env
+  app.listen(+PORT, '0.0.0.0', () => {
     logger.info({ port: PORT }, 'Server is running')
   })
 }
